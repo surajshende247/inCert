@@ -1,7 +1,24 @@
+import React, {useState} from 'react';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import samplePDF from './blank_certificate.pdf';
 
-function App() {
+export default function App() {
+
+  const [certificateDetail, setCertificateDetail] = useState({
+    certNo: '', 
+    certName: '',
+    certCourse: '',
+    certDate: ''
+  });
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setCertificateDetail({
+      ...certificateDetail,
+      [e.target.name]: e.target.value
+    })
+  };
+
 
   const certificateNo = "JULYC001";
   const studentName = "JULIUS C. JONES";
@@ -20,7 +37,7 @@ function App() {
     const firstPage = pages[0]
     const { width, height } = firstPage.getSize()
 
-    firstPage.drawText(certificateNo, {
+    firstPage.drawText(certificateDetail.certNo, {
       x: width - 250,
       y: height -50,
       size: 15,
@@ -28,7 +45,7 @@ function App() {
       color: rgb(0.6, 0, 1)
     });
 
-    firstPage.drawText(studentName, {
+    firstPage.drawText(certificateDetail.certName, {
       x: width/2 - 200,
       y: height -260,
       size: 45,
@@ -36,7 +53,7 @@ function App() {
       color: rgb(0.6, 0, 1)
     });
 
-    firstPage.drawText(courseName, {
+    firstPage.drawText(certificateDetail.certCourse, {
       x: width - 370,
       y: height - 318,
       size: 25,
@@ -44,7 +61,7 @@ function App() {
       color: rgb(0.6, 0, 1)
     });
 
-    firstPage.drawText(completionDate, {
+    firstPage.drawText(certificateDetail.certDate, {
       x: width - 490,
       y: height - 355,
       size: 25,
@@ -66,11 +83,34 @@ function App() {
       <div className="row">
         <div className="col-md-6">
           <form>
-            <input type="text" placeholder="Enter Certificate ID" className="form-control" />
-            <input type="text" placeholder="Enter Student Name" className="form-control" />
-            <input type="text" placeholder="Enter Course Name" className="form-control" />
-            <input type="text" placeholder="Enter Completion Date" className="form-control" />
-            <button className="btn btn-warning" onClick={createPdf}>Create PDF</button>
+            <input type="text"  placeholder="Enter Certificate ID" 
+            className="form-control" 
+            name="certNo"
+            value={certificateDetail.certNo}
+            onChange={handleChange} />
+
+            <input type="text" 
+            placeholder="Enter Student Name" 
+            className="form-control" 
+            name="certName"
+            value={certificateDetail.certName}
+            onChange={handleChange}/>
+
+            <input type="text" 
+            placeholder="Enter Course Name" 
+            className="form-control"
+            name="certCourse"
+            value={certificateDetail.certCourse}
+            onChange={handleChange} />
+
+            <input type="text" 
+            placeholder="Enter Completion Date" 
+            className="form-control" 
+            name="certDate"
+            value={certificateDetail.certDate}
+            onChange={handleChange}/>
+            <button type="button" className="btn btn-warning" onClick={createPdf}>Create PDF</button>
+            <button type="button" className="btn btn-warning" onClick={downloadPdf}>Download</button>
           </form>
         </div>
         <div className="col-md-6">
@@ -83,5 +123,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
