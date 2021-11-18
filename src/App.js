@@ -72,8 +72,15 @@ export default function App() {
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
 
-   //saveAs(pdfDataUri, "newcertificate.pdf");
    document.getElementById("pdf").src = pdfDataUri+"#view=FitH";
+   var link = document.createElement('a');
+    link.href = pdfDataUri;
+    link.download = 'file.pdf';
+    link.dispatchEvent(new MouseEvent('click'));
+  }
+
+  async function downloadPdf() {  
+ 
   }
 
    
