@@ -1,71 +1,59 @@
-import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
-import samplePDF from './blank.pdf';
+import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import samplePDF from './blank_certificate.pdf';
 
 function App() {
 
   const certificateNo = "JULYC001";
   const studentName = "JULIUS C. JONES";
-  const courseName = "CSCI E-101";
+  const courseName = "'CSCI E-101'";
   const completionDate = "01/01/2020";
-  const instructorName = "John Doe";
-
 
   async function createPdf() {
     const url = samplePDF;
     const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
   
     const pdfDoc = await PDFDocument.load(existingPdfBytes)
-    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Courier)
   
     const pages = pdfDoc.getPages()
     const firstPage = pages[0]
     const { width, height } = firstPage.getSize()
-    /*firstPage.drawText('This text was added with JavaScript!', {
-      x: 5,
-      y: height / 2 + 300,
-      size: 50,
-      font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
-      rotate: degrees(-45),
-    })*/
 
     firstPage.drawText(certificateNo, {
       x: width - 250,
       y: height -50,
       size: 15,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1)
+      color: rgb(0.6, 0, 1)
     });
 
     firstPage.drawText(studentName, {
       x: width/2 - 200,
-      y: height -270,
+      y: height -260,
       size: 45,
       font: helveticaFont,
-      color: rgb(0, 0, 1)
+      color: rgb(0.6, 0, 1)
     });
 
     firstPage.drawText(courseName, {
-      x: width - 400,
+      x: width - 370,
       y: height - 318,
-      size: 20,
+      size: 25,
       font: helveticaFont,
-      color: rgb(0, 0.5, 1)
+      color: rgb(0.6, 0, 1)
     });
 
     firstPage.drawText(completionDate, {
-      x: width - 500,
-      y: height - 350,
-      size: 20,
+      x: width - 490,
+      y: height - 355,
+      size: 25,
       font: helveticaFont,
-      color: rgb(0, 0.5, 1)
+      color: rgb(0.6, 0, 1)
     });
-  
-    //const pdfBytes = await pdfDoc.save()  
 
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-    console.log(pdfDataUri);
+
    //saveAs(pdfDataUri, "newcertificate.pdf");
    document.getElementById("pdf").src = pdfDataUri;
   }
