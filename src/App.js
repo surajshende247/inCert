@@ -52,6 +52,14 @@ function App() {
       font: helveticaFont,
       color: rgb(0, 0.5, 1)
     });
+
+    firstPage.drawText(completionDate, {
+      x: width - 500,
+      y: height - 350,
+      size: 20,
+      font: helveticaFont,
+      color: rgb(0, 0.5, 1)
+    });
   
     //const pdfBytes = await pdfDoc.save()  
 
