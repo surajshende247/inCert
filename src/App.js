@@ -36,6 +36,22 @@ function App() {
       font: helveticaFont,
       color: rgb(0.95, 0.1, 0.1)
     });
+
+    firstPage.drawText(studentName, {
+      x: width/2 - 200,
+      y: height -270,
+      size: 45,
+      font: helveticaFont,
+      color: rgb(0, 0, 1)
+    });
+
+    firstPage.drawText(courseName, {
+      x: width - 400,
+      y: height - 318,
+      size: 20,
+      font: helveticaFont,
+      color: rgb(0, 0.5, 1)
+    });
   
     //const pdfBytes = await pdfDoc.save()  
 
