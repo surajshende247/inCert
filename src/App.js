@@ -8,6 +8,7 @@ function App() {
   const courseName = "'CSCI E-101'";
   const completionDate = "01/01/2020";
 
+
   async function createPdf() {
     const url = samplePDF;
     const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
@@ -55,13 +56,30 @@ function App() {
     const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
 
    //saveAs(pdfDataUri, "newcertificate.pdf");
-   document.getElementById("pdf").src = pdfDataUri;
+   document.getElementById("pdf").src = pdfDataUri+"#view=FitH";
   }
+
+   
 
   return (
     <div>
-      <button onClick={createPdf}>Create PDF</button>
-      <iframe id="pdf" title="certificate-preview" width="100%" height="500px"></iframe>
+      <div className="row">
+        <div className="col-md-6">
+          <form>
+            <input type="text" placeholder="Enter Certificate ID" className="form-control" />
+            <input type="text" placeholder="Enter Student Name" className="form-control" />
+            <input type="text" placeholder="Enter Course Name" className="form-control" />
+            <input type="text" placeholder="Enter Completion Date" className="form-control" />
+            <button className="btn btn-warning" onClick={createPdf}>Create PDF</button>
+          </form>
+        </div>
+        <div className="col-md-6">
+          <iframe id="pdf" title="certificate-preview" width="100%" height="700px"></iframe>
+        </div>
+        
+      </div>
+      
+      
     </div>
   );
 }
