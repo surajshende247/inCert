@@ -61,7 +61,7 @@ function App() {
   return (
     <div>
       <button onClick={createPdf}>Create PDF</button>
-      <iframe id="pdf" width="100%" height="500px"></iframe>
+      <iframe id="pdf" title="certificate-preview" width="100%" height="500px"></iframe>
     </div>
   );
 }
